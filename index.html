@@ -840,7 +840,7 @@ function buyKit(i){const k=KITS[i],bal=store.get('ml',0)-store.get('spent',0);if
   SFX.done();rain(RM?30:120);reward(`${k.n}로 교환했어요! 주스 ${k.p}L를 썼어요. 받는 방법은 이벤트 안내를 확인해 주세요.`)}
 for(let w=3;w<6;w++)for(let j=0;j<10;j++){const src=LV[Math.min(29,[12,16,20][w-3]+Math.round(j*(w===3?.9:1)))],f=[.97,.94,.9][w-3];LV.push({...src,sp:src.sp?+(src.sp*f).toFixed(2):src.sp,fs:src.fs?+(src.fs/f).toFixed(2):src.fs,d:Math.min(5,Math.max(src.d,j<3?2+(w-3):j<7?3+(w>3):4+(j>8||w>4)))})}
 function mult(){return LV[stageNo].m||2}
-function intro(no){sel=((no%RECIPES.length)+RECIPES.length)%RECIPES.length;setBgm('bgm');stageNo=((no%RECIPES.length)+RECIPES.length)%RECIPES.length;R=RECIPES[stageNo];playing=false;world=Math.floor(stageNo/10);setBg(WORLDS[world].bg);
+function intro(no){sel=((no%RECIPES.length)+RECIPES.length)%RECIPES.length;{const w0=Math.floor(sel/10);setBgm(w0>0&&A['bgm_w'+(w0+1)]?'bgm_w'+(w0+1):'bgm')}stageNo=((no%RECIPES.length)+RECIPES.length)%RECIPES.length;R=RECIPES[stageNo];playing=false;world=Math.floor(stageNo/10);setBg(WORLDS[world].bg);
   $('inNo').textContent=`${SL(stageNo)} · 난이도 ${'●'.repeat(LV[stageNo].d)}${'○'.repeat(5-LV[stageNo].d)}`;$('inName').textContent=R.n;
   $('inDesc').textContent=R.d;
   {const b=myBest()[stageNo],t3=stageTop3(stageNo);$('inBest').textContent=b?`내 최고 ${b.toLocaleString()}mL`:'첫 도전이에요';
