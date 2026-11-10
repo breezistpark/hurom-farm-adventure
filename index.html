@@ -331,7 +331,7 @@ a.chipbtn{text-decoration:none;background:#F3ECF8}
       <h1>휴롬 농장 탐험</h1>
       <div class="acts"><button class="icb" id="rankBtn" aria-label="순위 보기"><img alt="" data-a="ic_rank"></button><button class="icb" id="setBtn" aria-label="설정"><img alt="" data-a="ic_set"></button></div></div>
     <div class="stats">
-      <div class="stat" id="totalP"><i class="jar"><i class="liq" id="liq"><svg viewBox="0 0 80 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6Q5 0 10 6T20 6T30 6T40 6T50 6T60 6T70 6T80 6V12H0z"/></svg><svg viewBox="0 0 80 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6Q5 0 10 6T20 6T30 6T40 6T50 6T60 6T70 6T80 6V12H0z"/></svg></i></i><span><small>지금까지 착즙한 양</small><b id="totalV">0.0L</b></span></div>
+      <div class="stat" id="totalP"><i class="jar"><i class="liq" id="liq"><svg viewBox="0 0 80 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6Q5 0 10 6T20 6T30 6T40 6T50 6T60 6T70 6T80 6V12H0z"/></svg><svg viewBox="0 0 80 12" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6Q5 0 10 6T20 6T30 6T40 6T50 6T60 6T70 6T80 6V12H0z"/></svg></i></i><span><small>내 주스</small><b id="totalV">0.0L</b></span></div>
       <button class="stat" id="giftBtn"><img alt="" data-a="gift"><span><small id="giftL">주스키트 상점까지</small><b id="giftV">0/10</b></span></button>
     </div>
     <div id="legend"></div>
@@ -547,7 +547,7 @@ function hub(){playing=false;setBgm('bgm');$('hud').hidden=true;setBg('farm');sh
   if(moved&&!RM){av.classList.add('walk');clearTimeout(av._t);av._t=setTimeout(()=>av.classList.remove('walk'),1000)}
   const ml=store.get('ml',0)-store.get('spent',0);$('liq').style.height=(18+62*Math.min(1,ml/5000))+'%';
   $('legend').innerHTML=['slash','tap','catch','mem','link'].map(m=>`<span>${gm(m)}${GS[m]}</span>`).join('');
-  const d=doneCount();$('giftL').textContent=d>=RECIPES.length?'주스키트 상점':'주스키트 상점까지';$('giftV').textContent=d>=RECIPES.length?'열렸어요!':`${d}/${RECIPES.length}`;$('totalV').textContent=fmtL(store.get('ml',0));
+  const d=doneCount();$('giftL').textContent=d>=RECIPES.length?'주스키트 상점':'주스키트 상점까지';$('giftV').textContent=d>=RECIPES.length?'열렸어요!':`${d}/${RECIPES.length}`;$('totalV').textContent=fmtL(store.get('ml',0)-store.get('spent',0));
   }
 let sayI=0;
 function sayLines(){const p=prog(),cur=p.findIndex(v=>!v),d=p.filter(v=>v).length,ml=store.get('ml',0),n=myName();
@@ -563,7 +563,7 @@ function reward(msg){const d=doneCount(),open=d>=RECIPES.length,bal=store.get('m
   $('rwNote').textContent=msg||'';show('reward')}
 function buyKit(i){const k=KITS[i],bal=store.get('ml',0)-store.get('spent',0);if(!k||doneCount()<RECIPES.length||bal<k.p*1000)return;
   store.set('spent',store.get('spent',0)+k.p*1000);const own=store.get('kits',[]);own[i]=(own[i]|0)+1;store.set('kits',own);
-  SFX.done();rain(RM?30:120);reward(`${k.n}로 교환했어요! 받는 방법은 이벤트 안내를 확인해 주세요.`)}
+  SFX.done();rain(RM?30:120);reward(`${k.n}로 교환했어요! 주스 ${k.p}L를 썼어요. 받는 방법은 이벤트 안내를 확인해 주세요.`)}
 function mult(){return LV[stageNo].m||2}
 function intro(no){setBgm('bgm');stageNo=((no%RECIPES.length)+RECIPES.length)%RECIPES.length;R=RECIPES[stageNo];playing=false;setBg('farm');
   $('inNo').textContent=`레시피 ${stageNo+1} / ${RECIPES.length} · 난이도 ${'●'.repeat(LV[stageNo].d)}${'○'.repeat(5-LV[stageNo].d)}`;$('inName').textContent=R.n;
@@ -772,7 +772,7 @@ function finish(ok){playing=false;$('hud').hidden=true;trails={};
     renderTop3('reTop',stageNo);$('nameRow').hidden=true;pushMe();
     $('reGlass').hidden=false;$('reImg').src=A[R.g]||'';$('reTitle').textContent=R.n+' 완성!';
     $('reStars').hidden=false;[...$('reStars').children].forEach((s,i)=>{s.classList.remove('on');void s.offsetWidth;s.classList.toggle('on',i<stars)});
-    $('reScore').textContent=fmtL(gain);$('reSub').innerHTML=`이번 게임으로 <b>${fmtL(gain)}</b>를 모았어요! (${score.toLocaleString()}mL)<br><small>재료 ${base} · 남은 시간 ${bT} · 최고 콤보 ${bC}${bP?' · 실수 없음 '+bP:''}</small><br>지금까지 착즙한 양 ${fmtL(tot)}`;$('nextBtn').hidden=false;$('nextBtn').textContent=justWon?'상점 가기':'다음 레시피';
+    $('reScore').textContent=fmtL(gain);$('reSub').innerHTML=`이번 게임으로 <b>${fmtL(gain)}</b>를 모았어요! (${score.toLocaleString()}mL)<br><small>재료 ${base} · 남은 시간 ${bT} · 최고 콤보 ${bC}${bP?' · 실수 없음 '+bP:''}</small><br>내 주스 ${fmtL(tot-store.get('spent',0))}`;$('nextBtn').hidden=false;$('nextBtn').textContent=justWon?'상점 가기':'다음 레시피';
     SFX.done();rain(RM?30:110);burst(W/2,H*.3,'#FFC94D',40)}
   else{$('reRec').textContent='';$('reTop').innerHTML='';$('nameRow').hidden=true;$('reGlass').hidden=true;$('reTitle').textContent='조금만 더 모으면 돼요';$('reStars').hidden=true;$('reScore').textContent=score.toLocaleString()+'mL';
     const left=Object.keys(need).filter(k=>got[k]<need[k]).map(k=>`${ING[k][0]} ${need[k]-got[k]}개`).join(', ');
@@ -863,7 +863,7 @@ function saveName(v){v=String(v||'').replace(/\s+/g,' ').trim().slice(0,10);if(!
 function renderRank(){$('tabAll').classList.toggle('on',rankTab==='all');$('tabStage').classList.toggle('on',rankTab==='stage');const b=board();
   $('rankMsg').textContent=rankState==='on'?`함께 착즙하는 사람 ${b.length}명`+(myName()?'':' · 설정에서 이름을 정하면 내 기록도 올라가요'):rankState==='loading'?'다른 사람들의 기록을 불러오는 중이에요…':'이 화면에서는 내 기록만 볼 수 있어요.';
   if(rankTab==='all'){const l=b.slice().sort((x,y)=>y.ml-x.ml),mi=l.findIndex(p=>p.me),top=l.slice(0,15);if(mi>=15)top.push(l[mi]);
-    $('rankList').innerHTML=top.map(p=>{const r=l.indexOf(p)+1;return`<div class="rk${p.me?' me':''}${r<=3?' pod':''}">${r<=3?medal(r):`<i>${r}</i>`}<span>${esc(p.name)}${p.me?' (나)':''}<small>별 ${p.stars}개</small></span><em>${fmtL(p.ml)}</em></div>`}).join('')}
+    $('rankList').innerHTML=top.map(p=>{const r=l.indexOf(p)+1;return`<div class="rk${p.me?' me':''}${r<=3?' pod':''}">${r<=3?medal(r):`<i>${r}</i>`}<span>${esc(p.name)}${p.me?' (나)':''}<small>누적 착즙량 · 별 ${p.stars}개</small></span><em>${fmtL(p.ml)}</em></div>`}).join('')}
   else $('rankList').innerHTML=RECIPES.map((r,i)=>`<div class="stg">${i+1}. ${esc(r.n)}<small>${GS[GM[i]]}</small></div>`+(top3Html(i)||'<div class="rk"><i>-</i><span><small>아직 기록이 없어요</small></span><em></em></div>')).join('')}
 function refreshRank(){if(!$('rank').hidden)renderRank()}
 function openRank(){show('rank');renderRank()}
