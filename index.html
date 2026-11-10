@@ -846,7 +846,7 @@ function intro(no){sel=((no%RECIPES.length)+RECIPES.length)%RECIPES.length;{cons
   {const b=myBest()[stageNo],t3=stageTop3(stageNo);$('inBest').textContent=b?`내 최고 ${b.toLocaleString()}mL`:'첫 도전이에요';
     $('inTop').innerHTML=t3.map((e,r)=>`<span>${A['md'+(r+1)]?`<img alt="${r+1}등" src="${A['md'+(r+1)]}">`:(r+1)+'등'}${esc(e.name)} <em>${e.ml.toLocaleString()}</em></span>`).join('')}
   $('inScr').scrollTop=0;$('inIngs').innerHTML=Object.keys(R.i).map(k=>`<div class="ingr"><img alt="" src="${A[k]||''}"><div><b>${ING[k][0]}</b><span>${ING[k][2]}</span></div><em>× ${GM[stageNo]==='link'?R.i[k]:GM[stageNo]==='mem'?Math.min(2,R.i[k])+'쌍':R.i[k]*mult()}</em></div>`).join('');
-  const g=GM[stageNo];$('inGame').innerHTML=gm(g)+GI[g][0];$('inHow').textContent=GI[g][1]+` ${LV[stageNo].t||60}초 안에 주스를 완성해요.`;$('startBtn').className='btn '+g;
+  const g=GM[stageNo];$('inGame').innerHTML=gm(g)+GI[g][0];$('inHow').textContent=GI[g][1]+` ${LV[stageNo].t||60}초 안에 주스를 완성해요.`;$('startBtn').className='btn'+(['slash','catch','tap','mem','link'].includes(g)?' '+g:'');
   $('hud').hidden=true;show('intro')}
 let tipT=0;
 const BGI={pac:'bg_catch',run:'bg_catch',board:'bg_slash',count:'bg_slash',find:'farm',jig:'bg_slash',rush:'bg_slash',knot:'bg_catch',mix:'bg_slash',quiz:'bg_slash',scale:'bg_slash',slash:'bg_slash',catch:'bg_catch',link:'bg_slash',tap:'bg_field',mem:'bg_slash',pour:'bg_slash',sort:'bg_catch',spin:'bg_slash',shop:'bg_slash'},BGMK={pac:'bgm_tap',run:'bgm_slash',board:'bgm_link',count:'bgm_mem',find:'bgm_tap',jig:'bgm_mem',rush:'bgm_link',knot:'bgm_mem',mix:'bgm_catch',quiz:'bgm_mem',scale:'bgm_link',shop:'bgm_tap',pour:'bgm_catch',sort:'bgm_tap',spin:'bgm_link'};
