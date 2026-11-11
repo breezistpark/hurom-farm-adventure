@@ -975,8 +975,8 @@ const SFX={good(c){swish();tone(520+Math.min(c,12)*45,.16,'triangle',.16,900+Mat
 let musicOn=store.get('bgm',true),BGM=null,bgmKey='bgm',bgUnlocked=false;const BG={};
 function bgEl(k){if(!BG[k]){const a=new Audio(A[k]);a.loop=true;a.volume=k==='bgm'?.3:.26;a.preload='auto';BG[k]=a}return BG[k]}
 function bgm(){const k=A[bgmKey]?bgmKey:'bgm';if(!A[k])return;
-  if(!bgUnlocked){bgUnlocked=true;for(const n in A)if(n.startsWith('bgm')&&n!==k){const a=bgEl(n);a.muted=true;const pr=a.play();if(pr)pr.then(()=>{a.pause();a.currentTime=0;a.muted=false}).catch(()=>{a.muted=false})}}
-  const el=bgEl(k);if(BGM&&BGM!==el){BGM.pause();el.currentTime=0}BGM=el;try{BGM.playbackRate=(typeof fever!=='undefined'&&fever>0)?1.12:1}catch(e){}
+  if(!bgUnlocked){bgUnlocked=true;for(const n in A)if(n.startsWith('bgm')&&n!==k){const a=bgEl(n);a.muted=true;const pr=a.play();if(pr)pr.then(()=>{a.muted=false;if(BGM!==a){a.pause();a.currentTime=0}}).catch(()=>{a.muted=false})}}
+  const el=bgEl(k);el.muted=false;if(BGM&&BGM!==el){BGM.pause();try{el.currentTime=0}catch(e){}}BGM=el;try{BGM.playbackRate=(typeof fever!=='undefined'&&fever>0)?1.12:1}catch(e){}
   if(musicOn&&!document.hidden){if(BGM.paused)BGM.play().catch(()=>{})}else BGM.pause()}
 function setBgm(k){bgmKey=k;if(bgUnlocked)bgm()}
 addEventListener('pointerdown',bgm,true);document.addEventListener('visibilitychange',bgm);
@@ -1883,7 +1883,7 @@ NG.rox=ngChoice({learn:1,n:['맞다 틀리다! 레시피 OX','레시피에 대�
   down(p){if(m.w>0)return;const g=NG.rpair.geo(),i=Math.floor((p.y-g.top)/g.h);if(i<0||i>2)return;if(p.x<W*.5){if(!m.done.has(m.L[i].n)){m.sel=i;tone(520,.05,'sine',.08)}}else{if(m.sel<0||m.done.has(m.Rt[i].n))return;const y=g.top+(i+.5)*g.h;if(m.Rt[i].n===m.L[m.sel].n){m.done.add(m.Rt[i].n);m.sel=-1;hitGood({k:gk},W*.75,y-20*U);if(m.done.size>=3)m.w=.6}else{m.bad=i;m.w=.5;hitBad(W*.75,y-20*U)}}}}}
 /* register */
 for(const k in NG){const g=NG[k];GI[k]=[g.n[0],g.n[1],'<svg viewBox="0 0 16 16"><path d="M8 2.5l1.6 3.5 3.9.4-2.9 2.6.9 3.8L8 10.8l-3.5 2 .9-3.8L2.5 6.4l3.9-.4z" stroke="#fff" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg>'];GS[k]=g.s;BGI[k]=g.bg==='bg_field'?'bg_field':g.bg;BGMK[k]=g.bgm}
-{const BAN=['plus','cho','pattern','more','order','mines','ifact','rcount','count'],olds=GSEQ.filter(k=>!BAN.includes(k)),news=[...Object.keys(NG).filter(k=>NG[k].learn),...Object.keys(NG).filter(k=>!NG[k].learn)].filter(k=>!BAN.includes(k)),seq=[];for(let i=0;i<Math.max(olds.length,news.length);i++){if(olds[i])seq.push(olds[i]);if(news[i])seq.push(news[i])}GM.forEach((_,i)=>GM[i]=seq[i%seq.length])}
+{const BAN=['plus','cho','pattern','more','order','mines','ifact','rcount','count'],olds=GSEQ.filter(k=>!BAN.includes(k)),news=[...Object.keys(NG).filter(k=>NG[k].learn),...Object.keys(NG).filter(k=>!NG[k].learn)].filter(k=>!BAN.includes(k)),seq=[];for(let i=0;i<Math.max(olds.length,news.length);i++){if(olds[i])seq.push(olds[i]);if(news[i])seq.push(news[i])}GM.forEach((_,i)=>GM[i]=i<30?olds[i%olds.length]:seq[(i-30)%seq.length])}
 /* ---------- gimmick items: collect helpers, defuse hazards ---------- */
 let gks=[],gkT=9,shield=0,gkSeen=0;
 const GKG=[null,{n:'시간 +3초',c:'#FFC94D',ic:'it_star'},{n:'시간 +6초',c:'#8FB8FF',ic:'it_clock'},{n:'방패',c:'#9BE3C4',ic:'badge'},{n:'선물 상자',c:'#FF9EC4',ic:'gift'}],GKB=[null,{n:'꼬마 폭탄',c:'#9A8FA6',s:3},{n:'폭탄',c:'#FF9A4D',s:6},{n:'큰 폭탄',c:'#F0705F',s:9},{n:'왕폭탄',c:'#3A2E44',s:15}];
