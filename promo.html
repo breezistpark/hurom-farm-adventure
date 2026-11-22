@@ -11,15 +11,15 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="60가지 휴롬 주스 레시피를 46가지 미니게임으로 익히는 모바일 레시피 놀이터">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
 <style>
 /* Layout: a juice press — the page flows top to bottom like ingredients going in and juice coming out; real game recordings sit in phone frames beside each step. One deliberate pastel game world, single theme by choice. */
 :root{
   --cream:#FFF6EC; --paper:#FFFDF8; --peach:#FFE3D1; --ink:#3B2348; --ink-soft:#735C82;
   --coral:#FF6A57; --coral-deep:#E2493A; --sun:#FFC43A; --leaf:#2F9E72; --leaf-soft:#DDF3E7; --sky:#D7EEFF;
   --line:rgba(59,35,72,.12);
-  --f-display:"Jua","Noto Sans KR",system-ui,sans-serif;
-  --f-body:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --f-display:"Jua","Gowun Dodum",system-ui,sans-serif;
+  --f-body:"Gowun Dodum","Apple SD Gothic Neo",system-ui,sans-serif;
   --step--1:clamp(.8rem,.77rem + .15vw,.88rem); --step-0:clamp(1rem,.96rem + .2vw,1.1rem);
   --step-1:clamp(1.2rem,1.1rem + .45vw,1.45rem); --step-2:clamp(1.5rem,1.3rem + 1vw,2.1rem);
   --step-3:clamp(2rem,1.6rem + 2vw,3.2rem); --step-4:clamp(2.5rem,1.8rem + 3.6vw,4.6rem);
@@ -70,24 +70,22 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .card h3{font-size:var(--step-2);margin-top:8px;min-height:2.3em;display:flex;align-items:flex-end}
 .card p.d{font-size:var(--step--1);color:var(--ink-soft);margin-top:6px;min-height:3.3em}
 .ings{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.ing{display:flex;align-items:center;gap:6px;background:var(--cream);border-radius:14px;padding:5px 10px 5px 5px;font-weight:700;font-size:var(--step--1)}
+.ing{display:flex;align-items:center;gap:6px;background:var(--cream);border-radius:14px;padding:5px 10px 5px 5px;font-family:var(--f-display);font-size:var(--step--1)}
 .ing img{width:30px;height:30px;object-fit:contain}
 .ing b{color:var(--coral-deep);font-family:var(--f-display);font-weight:400}
 .ing.in{animation:pop .45s cubic-bezier(.2,1.6,.4,1) both}
 @keyframes pop{from{transform:scale(.6);opacity:.3}to{transform:scale(1);opacity:1}}
-.machine{position:relative;width:200px;height:330px}
-.machine .jc{position:absolute;bottom:0;left:50%;width:150px;transform:translateX(-50%)}
+.machine{position:relative;width:250px;aspect-ratio:345/460;max-width:100%}
+.machine .jc{position:absolute;inset:0;width:100%;height:100%;z-index:2}
 .machine.run .jc{animation:hum .16s linear infinite}
-@keyframes hum{0%,100%{transform:translateX(-50%) rotate(-.6deg)}50%{transform:translateX(-50%) rotate(.6deg)}}
-.machine .drop{position:absolute;top:0;left:50%;width:44px;margin-left:-22px;opacity:0}
+@keyframes hum{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(.5deg)}}
+.machine .drop{position:absolute;top:-4%;left:65%;width:17%;margin-left:-8.5%;opacity:0;z-index:3}
 .machine .drop.go{animation:fall .7s cubic-bezier(.5,0,.8,.6) forwards}
-@keyframes fall{0%{transform:translateY(-30px) scale(1);opacity:1}80%{opacity:1}100%{transform:translateY(120px) scale(.5);opacity:0}}
-.glass{position:absolute;right:-56px;bottom:0;width:86px;height:108px}
-.glass .fill{position:absolute;left:12%;right:12%;bottom:8%;height:0;border-radius:4px 4px 16px 16px;background:var(--sun);transition:height 1.1s ease,background .4s}
-.glass img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .4s}
-.glass.full img{opacity:1}
-.glass.full .fill{opacity:0}
-.counter{position:absolute;left:0;top:-6px;font-family:var(--f-display);font-size:var(--step--1);color:var(--ink-soft)}
+@keyframes fall{0%{transform:translateY(-40px) scale(1);opacity:1}80%{opacity:1}100%{transform:translateY(60px) scale(.45);opacity:0}}
+.machine .fill{position:absolute;left:7.6%;width:21.6%;bottom:4%;height:0;z-index:3;border-radius:2px 2px 9px 9px;background:var(--sun);opacity:.85;mix-blend-mode:multiply;transition:height 1.2s ease}
+.machine .stream{position:absolute;left:27.5%;top:57%;width:7px;margin-left:-3px;height:0;z-index:3;border-radius:4px;background:var(--sun);transition:height .35s ease}
+.machine.run .stream{height:13%}
+.counter{position:absolute;left:0;top:-30px;white-space:nowrap;font-family:var(--f-display);font-size:var(--step--1);color:var(--ink-soft)}
 .counter b{color:var(--coral);font-weight:400}
 
 /* phone frames */
@@ -165,7 +163,7 @@ section{padding-block:clamp(56px,8vw,110px)}
 .k img{height:88px;width:100%;object-fit:contain}
 .k b{font-family:var(--f-display);font-weight:400;font-size:var(--step-0);line-height:1.25}
 .k span{font-size:var(--step--1);color:var(--ink-soft)}
-.k .sz{align-self:flex-start;font-size:.72rem;font-weight:700;color:var(--leaf);background:var(--leaf-soft);border-radius:99px;padding:.1em .6em}
+.k .sz{align-self:flex-start;font-size:.72rem;font-family:var(--f-display);color:var(--leaf);background:var(--leaf-soft);border-radius:99px;padding:.1em .6em}
 .fine{margin-top:18px;font-size:var(--step--1);color:var(--ink-soft);background:var(--paper);border-radius:14px;padding:12px 14px;box-shadow:inset 0 0 0 2px var(--line)}
 
 /* final */
@@ -238,8 +236,8 @@ footer img{height:16px;width:auto}
       <div class="machine" id="machine">
         <p class="counter">오늘 짠 주스 <b id="cnt">0</b>잔</p>
         <img class="drop" id="drop" src="pr-celery.webp" alt="">
-        <img class="jc" src="pr-juicer_f.webp" alt="휴롬 착즙기">
-        <div class="glass full" id="glass"><div class="fill" id="fill"></div><img id="gimg" src="pr-glass_g.webp" alt=""></div>
+        <div class="fill" id="fill" style="height:19%"></div><div class="stream" id="stream"></div>
+        <img class="jc" src="pr-juicer_h.webp" alt="휴롬 착즙기, 왼쪽 주스 출구 아래 유리잔">
       </div>
     </div>
   </div>
@@ -394,7 +392,7 @@ footer img{height:16px;width:auto}
 const RECIPES=[{"n":"퓨어 셀러리","d":"셀러리 한 가지만 짠 가장 간단한 주스예요.","g":"glass_g","i":[["셀러리","celery",3]]},{"n":"파인애플 민트 리프레셔","d":"파인애플에 민트 향을 더한 시원한 주스예요.","g":"glass_o","i":[["파인애플","pineapple",2],["민트","mint",1]]},{"n":"진저 레몬 샷","d":"레몬과 생강을 진하게 짠 한 모금 주스예요.","g":"glass_o","i":[["레몬","lemon",1],["생강","ginger",2]]},{"n":"애플 진저","d":"사과에 생강을 살짝 더한 주스예요.","g":"glass_o","i":[["사과","apple",4],["생강","ginger",1]]},{"n":"오렌지 자몽 민트","d":"오렌지와 자몽에 민트 향을 더한 상큼한 주스예요.","g":"glass_o","i":[["오렌지","orange",1],["자몽","grapefruit",1],["민트","mint",1]]},{"n":"클래식 ABC 주스","d":"사과(Apple)·비트(Beet)·당근(Carrot)의 앞 글자를 딴 붉은빛 주스예요.","g":"glass_r","i":[["사과","apple",1],["비트","beet",1],["당근","carrot",2]]},{"n":"그린 데일리","d":"오이와 시금치에 청사과의 새콤함을 더한 초록 주스예요.","g":"glass_g","i":[["오이","cucumber",1],["시금치","spinach",2],["청사과","gapple",1]]},{"n":"워터멜론 펀치","d":"수박과 파인애플에 민트를 곁들인 여름 과일 주스예요.","g":"glass_r","i":[["수박","watermelon",2],["파인애플","pineapple",1],["민트","mint",1]]},{"n":"모닝 글로우","d":"당근과 사과에 레몬을 더한 아침 주스예요.","g":"glass_o","i":[["당근","carrot",2],["사과","apple",1],["레몬","lemon",1]]},{"n":"셀러리 스피니치 애플","d":"셀러리와 시금치에 사과를 넉넉히 넣은 초록 주스예요.","g":"glass_g","i":[["셀러리","celery",1],["시금치","spinach",1],["사과","apple",3]]},{"n":"캐럿 오렌지 글로우","d":"당근과 오렌지에 생강을 살짝 더한 주황빛 주스예요.","g":"glass_o","i":[["당근","carrot",2],["오렌지","orange",2],["생강","ginger",1]]},{"n":"시트러스 캐럿 글로우","d":"당근에 오렌지·레몬·생강을 더한 상큼한 주스예요.","g":"glass_o","i":[["당근","carrot",4],["오렌지","orange",2],["레몬","lemon",1],["생강","ginger",1]]},{"n":"CCA 주스","d":"당근(Carrot)·셀러리(Celery)·사과(Apple)를 함께 짠 주황빛 주스예요.","g":"glass_o","i":[["당근","carrot",2],["셀러리","celery",2],["사과","apple",2]]},{"n":"오렌지 캐럿","d":"오렌지와 당근을 듬뿍, 사과를 조금 넣은 주황빛 주스예요.","g":"glass_o","i":[["오렌지","orange",2],["당근","carrot",4],["사과","apple",1]]},{"n":"케일 비트","d":"케일과 비트에 청사과와 생강을 더한 진한 주스예요.","g":"glass_r","i":[["케일","kale",1],["비트","beet",1],["청사과","gapple",1],["생강","ginger",1]]},{"n":"케일 파인애플 리프레셔","d":"케일·파인애플·오이에 민트와 라임을 더한 주스예요.","g":"glass_g","i":[["케일","kale",1],["파인애플","pineapple",1],["오이","cucumber",1],["민트","mint",1],["라임","lime",1]]},{"n":"시트러스 메들리","d":"오렌지·자몽·레몬·라임, 감귤 네 가지를 짠 주스예요.","g":"glass_o","i":[["오렌지","orange",4],["자몽","grapefruit",1],["레몬","lemon",1],["라임","lime",1]]},{"n":"셀러리 케일 애플","d":"사과에 셀러리·케일·레몬을 더한 초록 주스예요.","g":"glass_g","i":[["사과","apple",3],["셀러리","celery",1],["케일","kale",1],["레몬","lemon",1]]},{"n":"벨페퍼 토마토","d":"파프리카와 방울토마토에 오렌지와 당근을 더한 붉은 주스예요.","g":"glass_r","i":[["빨간 파프리카","pepper",1],["방울토마토","tomato",2],["오렌지","orange",1],["당근","carrot",3]]},{"n":"트로피컬 비트","d":"비트와 당근에 파인애플과 오렌지를 더한 진한 주스예요.","g":"glass_r","i":[["비트","beet",2],["당근","carrot",2],["파인애플","pineapple",1],["오렌지","orange",2]]},{"n":"스프링 주스","d":"자몽·비트·시금치에 레몬과 생강을 더한, 봄에 어울리는 산뜻한 주스예요.","g":"glass_r","i":[["자몽","grapefruit",1],["생강","ginger",1],["비트","beet",1],["레몬","lemon",1],["시금치","spinach",1]]},{"n":"스위트 스트로베리 애플","d":"딸기·사과·오렌지를 함께 짠 달콤한 과일 주스예요.","g":"glass_r","i":[["딸기","strawberry",3],["사과","apple",1],["오렌지","orange",1]]},{"n":"페어 케일 큐컴버","d":"배와 케일, 오이에 레몬을 더한 산뜻한 초록 주스예요.","g":"glass_g","i":[["배","pear",1],["케일","kale",1],["오이","cucumber",1],["레몬","lemon",1]]},{"n":"로우 슈거 그린","d":"오이·셀러리·시금치에 레몬을 더한 담백한 초록 주스예요.","g":"glass_g","i":[["오이","cucumber",1],["셀러리","celery",2],["시금치","spinach",2],["레몬","lemon",1]]},{"n":"케일 시트러스 징","d":"케일에 오렌지·당근·생강·레몬을 더한 톡 쏘는 주스예요.","g":"glass_g","i":[["케일","kale",1],["오렌지","orange",2],["당근","carrot",2],["생강","ginger",1],["레몬","lemon",1]]},{"n":"비트 오렌지 캐럿 애플","d":"비트·오렌지·당근·청사과에 생강까지, 다섯 가지를 짠 주스예요.","g":"glass_r","i":[["비트","beet",1],["오렌지","orange",1],["당근","carrot",2],["청사과","gapple",2],["생강","ginger",1]]},{"n":"베이직 그린 주스","d":"케일·오이·셀러리·청사과·레몬·생강, 여섯 가지가 들어가는 초록 주스예요.","g":"glass_g","i":[["케일","kale",1],["오이","cucumber",1],["셀러리","celery",2],["청사과","gapple",1],["레몬","lemon",1],["생강","ginger",1]]},{"n":"스위트 그린 주스","d":"셀러리·시금치·케일에 사과·당근·오렌지를 더한 달콤한 초록 주스예요.","g":"glass_g","i":[["셀러리","celery",2],["시금치","spinach",1],["케일","kale",1],["사과","apple",1],["당근","carrot",1],["오렌지","orange",1]]},{"n":"심플 그린 주스","d":"케일·오이·셀러리·사과·레몬·생강을 넉넉히 넣은 초록 주스예요.","g":"glass_g","i":[["케일","kale",2],["오이","cucumber",1],["셀러리","celery",3],["사과","apple",2],["레몬","lemon",1],["생강","ginger",1]]},{"n":"그린 파워 퓨전","d":"셀러리·케일·오이·라임·사과·파슬리, 여섯 가지 초록 주스예요.","g":"glass_g","i":[["셀러리","celery",3],["케일","kale",2],["오이","cucumber",1],["라임","lime",2],["사과","apple",1],["파슬리","parsley",1]]},{"n":"사과 오렌지 주스","d":"오렌지와 사과 하나씩, 가장 간단한 주스예요.","g":"glass_o","i":[["오렌지","orange",1],["사과","apple",1]]},{"n":"블루베리 스무디","d":"배와 포도, 블루베리를 함께 짠 보랏빛 주스예요.","g":"glass_r","i":[["배","pear",1],["포도","grape",1],["블루베리","blueberry",2]]},{"n":"비트 사과 주스","d":"사과에 비트와 레몬을 더한 붉은 주스예요.","g":"glass_r","i":[["사과","apple",3],["비트","beet",1],["레몬","lemon",1]]},{"n":"토마토 포도","d":"포도와 방울토마토에 레몬을 더했어요.","g":"glass_r","i":[["포도","grape",3],["방울토마토","tomato",2],["레몬","lemon",1]]},{"n":"양배추 토마토","d":"사과와 토마토, 양배추를 함께 짜요.","g":"glass_g","i":[["사과","apple",2],["방울토마토","tomato",1],["양배추","cabbage",2]]},{"n":"석류 오렌지 파인애플","d":"석류와 오렌지, 파인애플의 새콤달콤한 주스예요.","g":"glass_r","i":[["석류","pomegranate",1],["오렌지","orange",2],["파인애플","pineapple",1]]},{"n":"감 망고 오렌지","d":"오렌지에 망고와 감을 더한 가을빛 주스예요.","g":"glass_o","i":[["오렌지","orange",3],["망고","mango",1],["감","persimmon",1]]},{"n":"스트레스 릴리프","d":"마와 양배추, 배를 함께 짠 담백한 주스예요.","g":"glass_g","i":[["마","yam",1],["양배추","cabbage",2],["배","pear",3]]},{"n":"퍼플 캐럿 주스","d":"당근과 블루베리, 포도, 배를 함께 짜요.","g":"glass_r","i":[["당근","carrot",2],["블루베리","blueberry",1],["포도","grape",1],["배","pear",2]]},{"n":"체리 베리","d":"방울토마토와 배, 블루베리, 라즈베리를 함께 짜요.","g":"glass_r","i":[["방울토마토","tomato",4],["배","pear",1],["블루베리","blueberry",1],["라즈베리","raspberry",1]]},{"n":"파프리카 오렌지","d":"오렌지와 파프리카, 두 가지로 만드는 주스예요.","g":"glass_o","i":[["오렌지","orange",3],["빨간 파프리카","pepper",1]]},{"n":"레몬 리프레시","d":"배와 바나나에 레몬을 더했어요.","g":"glass_o","i":[["배","pear",2],["바나나","banana",1],["레몬","lemon",1]]},{"n":"로우 칼로리 주스","d":"방울토마토와 키위, 배를 함께 짜요.","g":"glass_g","i":[["방울토마토","tomato",2],["키위","kiwi",2],["배","pear",2]]},{"n":"울트라 이뮤니티","d":"사과와 바나나, 키위를 두 개씩 넣어요.","g":"glass_g","i":[["사과","apple",2],["바나나","banana",2],["키위","kiwi",2]]},{"n":"이뮤니티 레스큐 그린","d":"밀싹과 당근, 비트를 함께 짜요.","g":"glass_r","i":[["밀싹","wheatgrass",1],["당근","carrot",4],["비트","beet",2]]},{"n":"양배추 당근 주스","d":"양배추와 레몬, 비트, 당근을 함께 짜요.","g":"glass_r","i":[["양배추","cabbage",1],["레몬","lemon",1],["비트","beet",2],["당근","carrot",4]]},{"n":"파워업 주스","d":"브로콜리와 오렌지, 셀러리, 레몬을 함께 짜요.","g":"glass_g","i":[["브로콜리","broccoli",1],["오렌지","orange",3],["셀러리","celery",4],["레몬","lemon",3]]},{"n":"슈퍼 항산화 주스","d":"브로콜리와 케일, 파인애플, 배를 함께 짜요.","g":"glass_g","i":[["브로콜리","broccoli",2],["케일","kale",1],["파인애플","pineapple",1],["배","pear",1]]},{"n":"리주버네이션 주스","d":"블루베리와 블랙베리, 오렌지, 배를 함께 짜요.","g":"glass_r","i":[["블루베리","blueberry",1],["블랙베리","blackberry",1],["오렌지","orange",2],["배","pear",1]]},{"n":"서큘레이션 주스","d":"셀러리와 키위, 케일, 신선초, 사과 다섯 가지예요.","g":"glass_g","i":[["셀러리","celery",3],["키위","kiwi",2],["케일","kale",1],["신선초","angelica",1],["사과","apple",2]]},{"n":"더블 드래곤","d":"용과 한 가지로 만드는 분홍빛 주스예요.","g":"glass_r","i":[["용과","dragon",3]]},{"n":"소화 주스","d":"파인애플과 키위, 두 가지로 만들어요.","g":"glass_g","i":[["파인애플","pineapple",3],["키위","kiwi",1]]},{"n":"위트그라스 페어","d":"배에 밀싹을 더한 산뜻한 주스예요.","g":"glass_g","i":[["배","pear",3],["밀싹","wheatgrass",1]]},{"n":"오렌지 라이트","d":"오렌지에 청경채와 바나나를 더했어요.","g":"glass_o","i":[["오렌지","orange",3],["청경채","bokchoy",1],["바나나","banana",1]]},{"n":"블루베리 오이 포도","d":"포도를 듬뿍, 오이와 블루베리를 조금 넣어요.","g":"glass_r","i":[["오이","cucumber",1],["블루베리","blueberry",1],["포도","grape",4]]},{"n":"베리 레몬","d":"딸기를 듬뿍, 포도와 키위, 레몬을 더해요.","g":"glass_r","i":[["포도","grape",1],["키위","kiwi",1],["딸기","strawberry",4],["레몬","lemon",1]]},{"n":"자몽 트리플","d":"자몽과 오렌지, 파인애플에 당근을 조금 넣어요.","g":"glass_o","i":[["자몽","grapefruit",1],["오렌지","orange",1],["파인애플","pineapple",2],["당근","carrot",1]]},{"n":"라즈베리 망고 파인애플","d":"파인애플에 망고와 라즈베리를 더해요.","g":"glass_o","i":[["파인애플","pineapple",4],["망고","mango",1],["라즈베리","raspberry",1]]},{"n":"사과 멜론","d":"멜론과 사과에 청경채와 셀러리를 더해요.","g":"glass_g","i":[["멜론","melon",2],["사과","apple",1],["청경채","bokchoy",1],["셀러리","celery",1]]},{"n":"글로잉 스킨 주스","d":"파프리카와 키위, 딸기, 레몬, 오렌지 다섯 가지예요.","g":"glass_o","i":[["빨간 파프리카","pepper",3],["키위","kiwi",3],["딸기","strawberry",1],["레몬","lemon",1],["오렌지","orange",2]]}];
 const GAMES=["싹둑! 썰기", "쏙쏙! 받기", "빙글! 짜기", "쪼르르! 따르기", "쏙! 타이밍 넣기", "찰랑! 주스 칵테일", "톡톡! 수확하기", "착착! 나누기", "북적! 주스 가게", "쪼르륵! 잇기", "팡팡! 풍선 터뜨리기", "빙글빙글! 컵 속 재료", "붕붕! 꿀벌 배달", "콕콕! 숨은 재료 찾기", "쿵짝! 리듬 착즙", "통통! 재료 벽돌", "앗! 불청객 찾기", "짝꿍! 카드 맞추기", "폴짝! 재료 달리기", "쏙! 집게 뽑기", "반짝! 자리 기억", "냠냠! 농장 미로", "딱! 레시피 저울", "짝짝! 레시피 퍼즐", "착착! 컨베이어 고르기", "데굴! 주사위 농장", "삼목! 재료 한 줄", "쿵! 누름봉 타이밍", "반짝! 순서 기억", "영차! 착즙 겨루기", "술술! 실타래 풀기", "데굴! 수박 길 건너기", "쏙! 재료 발판", "멈춰! 살금살금 배달", "영차! 재료 구출", "피융! 새총 맞히기", "땡! 레시피 종 치기", "기울여! 재료 굴리기", "휙! 고리 던지기", "땡! 다섯 개 종 치기", "쏙쏙! 빨리 수확하기", "데굴! 과일 볼링", "통통! 과일 핀볼", "슛! 바구니 농구", "첨벙! 연못 낚시", "스르륵! 과일 컬링"];
 const KITS=[["kit0","사과 당근 데일리 멀티","사과·당근·자몽·레몬","1.5kg"],["kit1","당근 케일 아이 루틴","사과·케일·당근","1.5kg"],["kit2","ABC","사과·비트·당근","1.5kg"],["kit3","사과 당근 데일리 멀티","사과·당근·자몽·레몬","2.5kg"],["kit4","당근 케일 아이 루틴","사과·케일·당근","2.5kg"],["kit5","ABC","사과·비트·당근","2.5kg"]];
-const HAS=new Set(["angelica", "apple", "banana", "beet", "blackberry", "blueberry", "bokchoy", "broccoli", "cabbage", "carrot", "celery", "cucumber", "dragon", "gapple", "ginger", "glass_g", "glass_o", "glass_r", "glass_w", "grape", "grapefruit", "ic_balloon", "ic_beat", "ic_book", "ic_catch", "ic_garden", "ic_mem", "ic_plaza", "ic_rank", "ic_scale", "ic_slash", "juicer_f", "juicer_run", "kale", "kit0", "kit1", "kit2", "kit3", "kit4", "kit5", "kiwi", "lemon", "lime", "logo", "mango", "melon", "mint", "orange", "parsley", "pear", "pepper", "persimmon", "pineapple", "pomegranate", "raspberry", "spinach", "strawberry", "title_l", "tomato", "watermelon", "wheatgrass", "yam"]);
+const HAS=new Set(["angelica", "apple", "banana", "beet", "blackberry", "blueberry", "bokchoy", "broccoli", "cabbage", "carrot", "celery", "cucumber", "dragon", "gapple", "ginger", "glass_g", "glass_o", "glass_r", "glass_w", "grape", "grapefruit", "ic_balloon", "ic_beat", "ic_book", "ic_catch", "ic_garden", "ic_mem", "ic_plaza", "ic_rank", "ic_scale", "ic_slash", "juicer_f", "juicer_h", "juicer_run", "kale", "kit0", "kit1", "kit2", "kit3", "kit4", "kit5", "kiwi", "lemon", "lime", "logo", "mango", "melon", "mint", "orange", "parsley", "pear", "pepper", "persimmon", "pineapple", "pomegranate", "raspberry", "spinach", "strawberry", "title_l", "tomato", "watermelon", "wheatgrass", "yam"]);
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=id=>document.getElementById(id);
 const img=k=>HAS.has(k)?'pr-'+k+'.webp':'';
@@ -414,25 +412,24 @@ if(!RM){const ks=['apple','carrot','orange','lemon','kale','beet','strawberry','
   for(let i=0;i<9;i++){const e=document.createElement('img');e.src=img(ks[i%ks.length]);e.alt='';e.style.left=(5+i*11)+'%';e.style.animationDuration=(14+i%4*4)+'s';e.style.animationDelay=(-i*2.3)+'s';e.style.width=(34+i%3*12)+'px';r.appendChild(e)}}
 
 /* the press */
-const JCOL={glass_o:'#FFA42B',glass_g:'#8FCB4E',glass_r:'#E8435A',glass_w:'#F3E7C9'};
+const JCOL={glass_o:'#FFA42B',glass_g:'#8FCB4E',glass_r:'#D8344F',glass_w:'#F1E2BD'};
 let ri=0,cnt=0,busy=false;
 function show(r){
   $('cTag').textContent=`레시피 ${ri+1} / ${RECIPES.length}`;$('cName').textContent=r.n;$('cDesc').textContent=r.d;
   $('cIngs').innerHTML=r.i.map(x=>`<span class="ing"><img src="${img(x[1])}" alt="">${x[0]} <b>×${x[2]}</b></span>`).join('');
-  $('gimg').src='pr-'+r.g+'.webp';
 }
 function press(){
-  if(busy)return;busy=true;const r=RECIPES[ri],g=$('glass'),f=$('fill'),m=$('machine'),d=$('drop');
-  show(r);g.classList.remove('full');f.style.transition='none';f.style.height='0';f.style.background=JCOL[r.g]||'#FFC43A';void f.offsetHeight;f.style.transition='';
+  if(busy)return;busy=true;const r=RECIPES[ri],f=$('fill'),m=$('machine'),d=$('drop'),st=$('stream');
+  show(r);const col=JCOL[r.g]||'#FFC43A';f.style.transition='height .4s ease';f.style.height='0';st.style.background=col;setTimeout(()=>{f.style.background=col;f.style.transition=''},420);
   const seq=[];r.i.forEach(x=>{for(let k=0;k<Math.min(x[2],3);k++)seq.push(x)});
   const chips=[...$('cIngs').children];chips.forEach(c=>c.style.opacity='.45');
   let t=0;seq.forEach((x,k)=>{setTimeout(()=>{d.src=img(x[1]);d.classList.remove('go');void d.offsetWidth;d.classList.add('go');
     const c=chips[r.i.indexOf(x)];if(c){c.style.opacity='1';c.classList.remove('in');void c.offsetWidth;c.classList.add('in')}},t);t+=380});
-  setTimeout(()=>{m.classList.add('run');f.style.height='78%'},t+200);
-  setTimeout(()=>{m.classList.remove('run');g.classList.add('full');cnt++;$('cnt').textContent=cnt},t+1400);
+  setTimeout(()=>{m.classList.add('run');f.style.height='21%'},t+200);
+  setTimeout(()=>{m.classList.remove('run');cnt++;$('cnt').textContent=cnt},t+1400);
   setTimeout(()=>{busy=false;ri=(ri+1)%RECIPES.length},t+2500);
 }
-if(RM){show(RECIPES[0]);$('glass').classList.add('full')}
+if(RM){show(RECIPES[0])}
 else{let on=true;const io0=new IntersectionObserver(es=>{on=es[0].isIntersecting});io0.observe($('machine'));
   setTimeout(press,600);setInterval(()=>{if(on&&!document.hidden)press()},400)}
 
