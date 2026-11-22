@@ -49,19 +49,40 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .top img{height:20px;width:auto}
 .top a.play{font-family:var(--f-display);color:var(--ink);background:var(--sun);text-decoration:none;padding:.35em .95em;border-radius:999px;font-size:var(--step--1)}
 
-/* hero */
-.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#FFE9DA 0%,var(--cream) 78%)}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-block:56px 40px}
-.hero h1{font-size:var(--step-4);letter-spacing:-.01em}
-.hero h1 em{font-style:normal;color:var(--coral);position:relative;white-space:nowrap}
-.hero h1 em::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.04em;height:.22em;background:var(--sun);border-radius:99px;z-index:-1;opacity:.7}
-.hero .lead{margin-top:18px;font-size:var(--step-1)}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
-.hero .note{margin-top:14px;font-size:var(--step--1);color:var(--ink-soft)}
-.fruit-rain{position:absolute;inset:0;pointer-events:none;z-index:0}
-.fruit-rain img{position:absolute;width:48px;opacity:.5;animation:drift linear infinite}
-@keyframes drift{from{transform:translateY(-80px) rotate(0)}to{transform:translateY(760px) rotate(300deg)}}
-.hero .wrap>*{position:relative;z-index:1}
+/* hero: the game's own key art, title logo like the in-game loading screen */
+.hero{position:relative;overflow:hidden;background:#BFE3F7 url(pr-title_l.webp) center 62%/cover no-repeat;min-height:min(86vh,820px);display:flex;flex-direction:column}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 46% 62% at 24% 48%,rgba(255,248,236,.62),rgba(255,248,236,0) 70%),linear-gradient(180deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 38%,rgba(40,20,50,0) 66%,rgba(40,20,50,.35) 100%);pointer-events:none}
+.hero::after{content:"";position:absolute;z-index:2;left:-5%;right:-5%;bottom:-1px;height:54px;background:var(--cream);border-radius:50% 50% 0 0/100% 100% 0 0}
+.hero .wrap{position:relative;z-index:2;flex:1;width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:center;padding-block:clamp(28px,5vw,56px) 90px}
+.logo{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.logo small{font:700 .9rem/1 var(--f-body);letter-spacing:.42em;color:#fff;background:var(--ink);border-radius:99px;padding:7px 14px 7px 20px;box-shadow:0 4px 12px rgba(40,20,60,.35)}
+.logo i{font:400 clamp(2.2rem,1.6rem + 3vw,4.4rem)/1 var(--f-display);font-style:normal;color:#FFE08A;filter:drop-shadow(0 3px 0 #C2562E) drop-shadow(0 6px 8px rgba(60,30,20,.4));transform:rotate(-5deg);margin:10px 0 -.1em .1em}
+.logo b{font:400 clamp(4.6rem,2.6rem + 10vw,10.5rem)/1 var(--f-display);display:flex;gap:.02em;filter:drop-shadow(0 7px 0 #C2562E) drop-shadow(0 16px 20px rgba(60,30,20,.45))}
+.logo b span{display:inline-block;background:linear-gradient(#FFF6C8,#FFC94D 55%,#FF8A3C);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:3px #fff;animation:drop .9s cubic-bezier(.2,1.5,.4,1) both,lbob 3.2s ease-in-out 1.4s infinite alternate}
+@keyframes lbob{to{transform:translateY(-8px)}}
+.logo b span:nth-child(2){animation-delay:.15s,1.6s}.logo b span:nth-child(3){animation-delay:.3s,1.8s}
+@keyframes drop{from{transform:translateY(-.5em) scale(.7)}}
+.hero h1{margin-top:18px;font-size:clamp(1.6rem,1.2rem + 1.8vw,2.7rem);color:#fff;text-shadow:0 3px 0 #3E7D4A,0 6px 18px rgba(20,50,30,.55)}
+.hero h1 em{font-style:normal;color:#FFE08A}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.hero .btn-main{font-size:clamp(1.2rem,1rem + .8vw,1.6rem);padding:.75em 1.5em}
+.hero .btn-ghost{background:rgba(255,253,248,.92)}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.badges span{font-family:var(--f-display);font-size:var(--step--1);color:var(--ink);background:rgba(255,253,248,.9);border-radius:99px;padding:.35em .9em;box-shadow:0 4px 10px rgba(40,20,60,.15)}
+.badges b{color:var(--coral-deep);font-weight:400}
+.hero .phone{transform:rotate(4deg);box-shadow:0 30px 60px rgba(30,15,40,.45),inset 0 0 0 2px #3a2a46}
+.hero .phone .tag{position:absolute;left:-26px;top:22%;z-index:3;font-family:var(--f-display);background:var(--sun);color:var(--ink);padding:.4em .9em;border-radius:99px;transform:rotate(-8deg);box-shadow:0 6px 14px rgba(0,0,0,.2);font-size:var(--step--1)}
+.fruit-rain{position:absolute;inset:0;pointer-events:none;z-index:1}
+.fruit-rain img{position:absolute;width:40px;opacity:.9;animation:drift linear infinite;filter:drop-shadow(0 6px 6px rgba(0,0,0,.18))}
+@keyframes drift{from{transform:translateY(-120px) rotate(0)}to{transform:translateY(980px) rotate(300deg)}}
+
+/* recipe press section */
+.pressec{padding-block:clamp(40px,6vw,80px)}
+.pressec .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center}
+.pressec h2{font-size:var(--step-3);letter-spacing:-.01em}
+.pressec h2 em{font-style:normal;color:var(--coral);position:relative;white-space:nowrap}
+.pressec h2 em::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.04em;height:.22em;background:var(--sun);border-radius:99px;z-index:-1;opacity:.7}
+.pressec .lead{margin-top:18px;font-size:var(--step-1)}
 
 /* the press: the orchestrated hero moment */
 .press{position:relative;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:end;justify-content:center}
@@ -82,9 +103,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .machine .drop{position:absolute;top:-4%;left:65%;width:17%;margin-left:-8.5%;opacity:0;z-index:3}
 .machine .drop.go{animation:fall .7s cubic-bezier(.5,0,.8,.6) forwards}
 @keyframes fall{0%{transform:translateY(-40px) scale(1);opacity:1}80%{opacity:1}100%{transform:translateY(60px) scale(.45);opacity:0}}
-.machine .fill{position:absolute;left:7.6%;width:21.6%;bottom:4%;height:0;z-index:3;border-radius:2px 2px 9px 9px;background:var(--sun);opacity:.85;mix-blend-mode:multiply;transition:height 1.2s ease}
-.machine .stream{position:absolute;left:27.5%;top:57%;width:7px;margin-left:-3px;height:0;z-index:3;border-radius:4px;background:var(--sun);transition:height .35s ease}
-.machine.run .stream{height:13%}
+.machine .fill{position:absolute;left:11%;width:23.5%;bottom:5.6%;height:0;z-index:3;border-radius:2px 2px 10px 10px/2px 2px 6px 6px;background:var(--sun);opacity:.82;mix-blend-mode:multiply;transition:height 1.2s ease}
+.machine .stream{position:absolute;left:28.5%;top:61%;width:7px;margin-left:-3px;height:0;z-index:3;border-radius:4px;background:var(--sun);transition:height .35s ease}
+.machine.run .stream{height:16%}
 .counter{position:absolute;left:0;top:-30px;white-space:nowrap;font-family:var(--f-display);font-size:var(--step--1);color:var(--ink-soft)}
 .counter b{color:var(--coral);font-weight:400}
 
@@ -180,7 +201,13 @@ footer .wrap{padding-block:26px;display:flex;flex-wrap:wrap;gap:10px 24px;justif
 footer img{height:16px;width:auto}
 
 @media (max-width:860px){
-  .hero .wrap{grid-template-columns:1fr;padding-block:36px 30px}
+  .hero{background-image:url(pr-title_p.webp);background-position:center 70%;min-height:auto}
+  .hero::before{background:radial-gradient(ellipse 80% 40% at 50% 30%,rgba(255,248,236,.5),rgba(255,248,236,0) 70%)}
+  .hero .wrap{grid-template-columns:1fr;justify-items:center;text-align:center;padding-block:34px 300px}
+  .logo{align-items:center}
+  .hero .ctas,.badges{justify-content:center}
+  .hero .phone{display:none}
+  .pressec .wrap{grid-template-columns:1fr}
   .press{justify-content:start}
   .goals{grid-template-columns:1fr}
   .step,.step:nth-child(even){grid-template-columns:1fr}
@@ -217,16 +244,29 @@ footer img{height:16px;width:auto}
   <div class="fruit-rain" id="rain" aria-hidden="true"></div>
   <div class="wrap">
     <div>
-      <p class="eyebrow">놀러와 휴롬팜 · 모바일 레시피 놀이터</p>
-      <h1>레시피, 외우지 말고<br><em>놀면서</em> 익혀요</h1>
-      <p class="lead">휴롬 주스 레시피 60가지를 미니게임 46가지로 만나요. 재료를 고르고, 받고, 썰고, 짜다 보면 어떤 주스에 무엇이 몇 개 들어가는지 손이 먼저 기억해요.</p>
-      <div class="ctas">
-        <a class="btn btn-main" href="https://breezistpark.github.io/hurom-farm-adventure/" target="_blank" rel="noopener">▶ 지금 플레이하기</a>
-        <a class="btn btn-ghost" href="#how">어떻게 배우나요?</a>
+      <div class="logo" role="img" aria-label="놀러와 휴롬팜">
+        <small>HUROM</small>
+        <i aria-hidden="true">놀러와</i>
+        <b aria-hidden="true"><span>휴</span><span>롬</span><span>팜</span></b>
       </div>
-      <p class="note">설치 없이 휴대폰 브라우저에서 바로 시작해요.</p>
+      <h1>주스 레시피, <em>놀면서</em> 익히는 농장 놀이터</h1>
+      <div class="ctas">
+        <a class="btn btn-main" href="https://breezistpark.github.io/hurom-farm-adventure/" target="_blank" rel="noopener">▶ 지금 무료로 플레이</a>
+        <a class="btn btn-ghost" href="#how">플레이 영상 보기</a>
+      </div>
+      <div class="badges"><span>레시피 <b>60</b>가지</span><span>미니게임 <b>46</b>가지</span><span>설치 없이 바로</span></div>
     </div>
-    <div class="press" aria-label="레시피 재료가 착즙기로 들어가 주스가 되는 애니메이션">
+    <div class="phone"><span class="tag">실제 플레이 화면</span><video muted playsinline loop preload="none" poster="pr-balloon.jpg" data-src="pr-balloon.mp4" aria-label="풍선 터뜨리기 게임 녹화"></video></div>
+  </div>
+</div>
+
+<section class="pressec"><div class="wrap">
+  <div>
+    <p class="eyebrow">레시피 프레스</p>
+    <h2>레시피, 외우지 말고<br><em>놀면서</em> 익혀요</h2>
+    <p class="lead">휴롬 주스 레시피 60가지를 미니게임 46가지로 만나요. 재료를 고르고, 받고, 썰고, 짜다 보면 어떤 주스에 무엇이 몇 개 들어가는지 손이 먼저 기억해요.</p>
+  </div>
+  <div class="press" aria-label="레시피 재료가 착즙기로 들어가 주스가 되는 애니메이션">
       <div class="card" id="card">
         <span class="tag" id="cTag">레시피 1 / 60</span>
         <h3 id="cName">퓨어 셀러리</h3>
@@ -236,12 +276,12 @@ footer img{height:16px;width:auto}
       <div class="machine" id="machine">
         <p class="counter">오늘 짠 주스 <b id="cnt">0</b>잔</p>
         <img class="drop" id="drop" src="pr-celery.webp" alt="">
-        <div class="fill" id="fill" style="height:19%"></div><div class="stream" id="stream"></div>
+        <div class="fill" id="fill" style="height:16%"></div><div class="stream" id="stream"></div>
         <img class="jc" src="pr-juicer_h.webp" alt="휴롬 착즙기, 왼쪽 주스 출구 아래 유리잔">
       </div>
     </div>
   </div>
-</div>
+</div></section>
 
 <section id="why"><div class="wrap">
   <div class="sec-head">
@@ -392,7 +432,7 @@ footer img{height:16px;width:auto}
 const RECIPES=[{"n":"퓨어 셀러리","d":"셀러리 한 가지만 짠 가장 간단한 주스예요.","g":"glass_g","i":[["셀러리","celery",3]]},{"n":"파인애플 민트 리프레셔","d":"파인애플에 민트 향을 더한 시원한 주스예요.","g":"glass_o","i":[["파인애플","pineapple",2],["민트","mint",1]]},{"n":"진저 레몬 샷","d":"레몬과 생강을 진하게 짠 한 모금 주스예요.","g":"glass_o","i":[["레몬","lemon",1],["생강","ginger",2]]},{"n":"애플 진저","d":"사과에 생강을 살짝 더한 주스예요.","g":"glass_o","i":[["사과","apple",4],["생강","ginger",1]]},{"n":"오렌지 자몽 민트","d":"오렌지와 자몽에 민트 향을 더한 상큼한 주스예요.","g":"glass_o","i":[["오렌지","orange",1],["자몽","grapefruit",1],["민트","mint",1]]},{"n":"클래식 ABC 주스","d":"사과(Apple)·비트(Beet)·당근(Carrot)의 앞 글자를 딴 붉은빛 주스예요.","g":"glass_r","i":[["사과","apple",1],["비트","beet",1],["당근","carrot",2]]},{"n":"그린 데일리","d":"오이와 시금치에 청사과의 새콤함을 더한 초록 주스예요.","g":"glass_g","i":[["오이","cucumber",1],["시금치","spinach",2],["청사과","gapple",1]]},{"n":"워터멜론 펀치","d":"수박과 파인애플에 민트를 곁들인 여름 과일 주스예요.","g":"glass_r","i":[["수박","watermelon",2],["파인애플","pineapple",1],["민트","mint",1]]},{"n":"모닝 글로우","d":"당근과 사과에 레몬을 더한 아침 주스예요.","g":"glass_o","i":[["당근","carrot",2],["사과","apple",1],["레몬","lemon",1]]},{"n":"셀러리 스피니치 애플","d":"셀러리와 시금치에 사과를 넉넉히 넣은 초록 주스예요.","g":"glass_g","i":[["셀러리","celery",1],["시금치","spinach",1],["사과","apple",3]]},{"n":"캐럿 오렌지 글로우","d":"당근과 오렌지에 생강을 살짝 더한 주황빛 주스예요.","g":"glass_o","i":[["당근","carrot",2],["오렌지","orange",2],["생강","ginger",1]]},{"n":"시트러스 캐럿 글로우","d":"당근에 오렌지·레몬·생강을 더한 상큼한 주스예요.","g":"glass_o","i":[["당근","carrot",4],["오렌지","orange",2],["레몬","lemon",1],["생강","ginger",1]]},{"n":"CCA 주스","d":"당근(Carrot)·셀러리(Celery)·사과(Apple)를 함께 짠 주황빛 주스예요.","g":"glass_o","i":[["당근","carrot",2],["셀러리","celery",2],["사과","apple",2]]},{"n":"오렌지 캐럿","d":"오렌지와 당근을 듬뿍, 사과를 조금 넣은 주황빛 주스예요.","g":"glass_o","i":[["오렌지","orange",2],["당근","carrot",4],["사과","apple",1]]},{"n":"케일 비트","d":"케일과 비트에 청사과와 생강을 더한 진한 주스예요.","g":"glass_r","i":[["케일","kale",1],["비트","beet",1],["청사과","gapple",1],["생강","ginger",1]]},{"n":"케일 파인애플 리프레셔","d":"케일·파인애플·오이에 민트와 라임을 더한 주스예요.","g":"glass_g","i":[["케일","kale",1],["파인애플","pineapple",1],["오이","cucumber",1],["민트","mint",1],["라임","lime",1]]},{"n":"시트러스 메들리","d":"오렌지·자몽·레몬·라임, 감귤 네 가지를 짠 주스예요.","g":"glass_o","i":[["오렌지","orange",4],["자몽","grapefruit",1],["레몬","lemon",1],["라임","lime",1]]},{"n":"셀러리 케일 애플","d":"사과에 셀러리·케일·레몬을 더한 초록 주스예요.","g":"glass_g","i":[["사과","apple",3],["셀러리","celery",1],["케일","kale",1],["레몬","lemon",1]]},{"n":"벨페퍼 토마토","d":"파프리카와 방울토마토에 오렌지와 당근을 더한 붉은 주스예요.","g":"glass_r","i":[["빨간 파프리카","pepper",1],["방울토마토","tomato",2],["오렌지","orange",1],["당근","carrot",3]]},{"n":"트로피컬 비트","d":"비트와 당근에 파인애플과 오렌지를 더한 진한 주스예요.","g":"glass_r","i":[["비트","beet",2],["당근","carrot",2],["파인애플","pineapple",1],["오렌지","orange",2]]},{"n":"스프링 주스","d":"자몽·비트·시금치에 레몬과 생강을 더한, 봄에 어울리는 산뜻한 주스예요.","g":"glass_r","i":[["자몽","grapefruit",1],["생강","ginger",1],["비트","beet",1],["레몬","lemon",1],["시금치","spinach",1]]},{"n":"스위트 스트로베리 애플","d":"딸기·사과·오렌지를 함께 짠 달콤한 과일 주스예요.","g":"glass_r","i":[["딸기","strawberry",3],["사과","apple",1],["오렌지","orange",1]]},{"n":"페어 케일 큐컴버","d":"배와 케일, 오이에 레몬을 더한 산뜻한 초록 주스예요.","g":"glass_g","i":[["배","pear",1],["케일","kale",1],["오이","cucumber",1],["레몬","lemon",1]]},{"n":"로우 슈거 그린","d":"오이·셀러리·시금치에 레몬을 더한 담백한 초록 주스예요.","g":"glass_g","i":[["오이","cucumber",1],["셀러리","celery",2],["시금치","spinach",2],["레몬","lemon",1]]},{"n":"케일 시트러스 징","d":"케일에 오렌지·당근·생강·레몬을 더한 톡 쏘는 주스예요.","g":"glass_g","i":[["케일","kale",1],["오렌지","orange",2],["당근","carrot",2],["생강","ginger",1],["레몬","lemon",1]]},{"n":"비트 오렌지 캐럿 애플","d":"비트·오렌지·당근·청사과에 생강까지, 다섯 가지를 짠 주스예요.","g":"glass_r","i":[["비트","beet",1],["오렌지","orange",1],["당근","carrot",2],["청사과","gapple",2],["생강","ginger",1]]},{"n":"베이직 그린 주스","d":"케일·오이·셀러리·청사과·레몬·생강, 여섯 가지가 들어가는 초록 주스예요.","g":"glass_g","i":[["케일","kale",1],["오이","cucumber",1],["셀러리","celery",2],["청사과","gapple",1],["레몬","lemon",1],["생강","ginger",1]]},{"n":"스위트 그린 주스","d":"셀러리·시금치·케일에 사과·당근·오렌지를 더한 달콤한 초록 주스예요.","g":"glass_g","i":[["셀러리","celery",2],["시금치","spinach",1],["케일","kale",1],["사과","apple",1],["당근","carrot",1],["오렌지","orange",1]]},{"n":"심플 그린 주스","d":"케일·오이·셀러리·사과·레몬·생강을 넉넉히 넣은 초록 주스예요.","g":"glass_g","i":[["케일","kale",2],["오이","cucumber",1],["셀러리","celery",3],["사과","apple",2],["레몬","lemon",1],["생강","ginger",1]]},{"n":"그린 파워 퓨전","d":"셀러리·케일·오이·라임·사과·파슬리, 여섯 가지 초록 주스예요.","g":"glass_g","i":[["셀러리","celery",3],["케일","kale",2],["오이","cucumber",1],["라임","lime",2],["사과","apple",1],["파슬리","parsley",1]]},{"n":"사과 오렌지 주스","d":"오렌지와 사과 하나씩, 가장 간단한 주스예요.","g":"glass_o","i":[["오렌지","orange",1],["사과","apple",1]]},{"n":"블루베리 스무디","d":"배와 포도, 블루베리를 함께 짠 보랏빛 주스예요.","g":"glass_r","i":[["배","pear",1],["포도","grape",1],["블루베리","blueberry",2]]},{"n":"비트 사과 주스","d":"사과에 비트와 레몬을 더한 붉은 주스예요.","g":"glass_r","i":[["사과","apple",3],["비트","beet",1],["레몬","lemon",1]]},{"n":"토마토 포도","d":"포도와 방울토마토에 레몬을 더했어요.","g":"glass_r","i":[["포도","grape",3],["방울토마토","tomato",2],["레몬","lemon",1]]},{"n":"양배추 토마토","d":"사과와 토마토, 양배추를 함께 짜요.","g":"glass_g","i":[["사과","apple",2],["방울토마토","tomato",1],["양배추","cabbage",2]]},{"n":"석류 오렌지 파인애플","d":"석류와 오렌지, 파인애플의 새콤달콤한 주스예요.","g":"glass_r","i":[["석류","pomegranate",1],["오렌지","orange",2],["파인애플","pineapple",1]]},{"n":"감 망고 오렌지","d":"오렌지에 망고와 감을 더한 가을빛 주스예요.","g":"glass_o","i":[["오렌지","orange",3],["망고","mango",1],["감","persimmon",1]]},{"n":"스트레스 릴리프","d":"마와 양배추, 배를 함께 짠 담백한 주스예요.","g":"glass_g","i":[["마","yam",1],["양배추","cabbage",2],["배","pear",3]]},{"n":"퍼플 캐럿 주스","d":"당근과 블루베리, 포도, 배를 함께 짜요.","g":"glass_r","i":[["당근","carrot",2],["블루베리","blueberry",1],["포도","grape",1],["배","pear",2]]},{"n":"체리 베리","d":"방울토마토와 배, 블루베리, 라즈베리를 함께 짜요.","g":"glass_r","i":[["방울토마토","tomato",4],["배","pear",1],["블루베리","blueberry",1],["라즈베리","raspberry",1]]},{"n":"파프리카 오렌지","d":"오렌지와 파프리카, 두 가지로 만드는 주스예요.","g":"glass_o","i":[["오렌지","orange",3],["빨간 파프리카","pepper",1]]},{"n":"레몬 리프레시","d":"배와 바나나에 레몬을 더했어요.","g":"glass_o","i":[["배","pear",2],["바나나","banana",1],["레몬","lemon",1]]},{"n":"로우 칼로리 주스","d":"방울토마토와 키위, 배를 함께 짜요.","g":"glass_g","i":[["방울토마토","tomato",2],["키위","kiwi",2],["배","pear",2]]},{"n":"울트라 이뮤니티","d":"사과와 바나나, 키위를 두 개씩 넣어요.","g":"glass_g","i":[["사과","apple",2],["바나나","banana",2],["키위","kiwi",2]]},{"n":"이뮤니티 레스큐 그린","d":"밀싹과 당근, 비트를 함께 짜요.","g":"glass_r","i":[["밀싹","wheatgrass",1],["당근","carrot",4],["비트","beet",2]]},{"n":"양배추 당근 주스","d":"양배추와 레몬, 비트, 당근을 함께 짜요.","g":"glass_r","i":[["양배추","cabbage",1],["레몬","lemon",1],["비트","beet",2],["당근","carrot",4]]},{"n":"파워업 주스","d":"브로콜리와 오렌지, 셀러리, 레몬을 함께 짜요.","g":"glass_g","i":[["브로콜리","broccoli",1],["오렌지","orange",3],["셀러리","celery",4],["레몬","lemon",3]]},{"n":"슈퍼 항산화 주스","d":"브로콜리와 케일, 파인애플, 배를 함께 짜요.","g":"glass_g","i":[["브로콜리","broccoli",2],["케일","kale",1],["파인애플","pineapple",1],["배","pear",1]]},{"n":"리주버네이션 주스","d":"블루베리와 블랙베리, 오렌지, 배를 함께 짜요.","g":"glass_r","i":[["블루베리","blueberry",1],["블랙베리","blackberry",1],["오렌지","orange",2],["배","pear",1]]},{"n":"서큘레이션 주스","d":"셀러리와 키위, 케일, 신선초, 사과 다섯 가지예요.","g":"glass_g","i":[["셀러리","celery",3],["키위","kiwi",2],["케일","kale",1],["신선초","angelica",1],["사과","apple",2]]},{"n":"더블 드래곤","d":"용과 한 가지로 만드는 분홍빛 주스예요.","g":"glass_r","i":[["용과","dragon",3]]},{"n":"소화 주스","d":"파인애플과 키위, 두 가지로 만들어요.","g":"glass_g","i":[["파인애플","pineapple",3],["키위","kiwi",1]]},{"n":"위트그라스 페어","d":"배에 밀싹을 더한 산뜻한 주스예요.","g":"glass_g","i":[["배","pear",3],["밀싹","wheatgrass",1]]},{"n":"오렌지 라이트","d":"오렌지에 청경채와 바나나를 더했어요.","g":"glass_o","i":[["오렌지","orange",3],["청경채","bokchoy",1],["바나나","banana",1]]},{"n":"블루베리 오이 포도","d":"포도를 듬뿍, 오이와 블루베리를 조금 넣어요.","g":"glass_r","i":[["오이","cucumber",1],["블루베리","blueberry",1],["포도","grape",4]]},{"n":"베리 레몬","d":"딸기를 듬뿍, 포도와 키위, 레몬을 더해요.","g":"glass_r","i":[["포도","grape",1],["키위","kiwi",1],["딸기","strawberry",4],["레몬","lemon",1]]},{"n":"자몽 트리플","d":"자몽과 오렌지, 파인애플에 당근을 조금 넣어요.","g":"glass_o","i":[["자몽","grapefruit",1],["오렌지","orange",1],["파인애플","pineapple",2],["당근","carrot",1]]},{"n":"라즈베리 망고 파인애플","d":"파인애플에 망고와 라즈베리를 더해요.","g":"glass_o","i":[["파인애플","pineapple",4],["망고","mango",1],["라즈베리","raspberry",1]]},{"n":"사과 멜론","d":"멜론과 사과에 청경채와 셀러리를 더해요.","g":"glass_g","i":[["멜론","melon",2],["사과","apple",1],["청경채","bokchoy",1],["셀러리","celery",1]]},{"n":"글로잉 스킨 주스","d":"파프리카와 키위, 딸기, 레몬, 오렌지 다섯 가지예요.","g":"glass_o","i":[["빨간 파프리카","pepper",3],["키위","kiwi",3],["딸기","strawberry",1],["레몬","lemon",1],["오렌지","orange",2]]}];
 const GAMES=["싹둑! 썰기", "쏙쏙! 받기", "빙글! 짜기", "쪼르르! 따르기", "쏙! 타이밍 넣기", "찰랑! 주스 칵테일", "톡톡! 수확하기", "착착! 나누기", "북적! 주스 가게", "쪼르륵! 잇기", "팡팡! 풍선 터뜨리기", "빙글빙글! 컵 속 재료", "붕붕! 꿀벌 배달", "콕콕! 숨은 재료 찾기", "쿵짝! 리듬 착즙", "통통! 재료 벽돌", "앗! 불청객 찾기", "짝꿍! 카드 맞추기", "폴짝! 재료 달리기", "쏙! 집게 뽑기", "반짝! 자리 기억", "냠냠! 농장 미로", "딱! 레시피 저울", "짝짝! 레시피 퍼즐", "착착! 컨베이어 고르기", "데굴! 주사위 농장", "삼목! 재료 한 줄", "쿵! 누름봉 타이밍", "반짝! 순서 기억", "영차! 착즙 겨루기", "술술! 실타래 풀기", "데굴! 수박 길 건너기", "쏙! 재료 발판", "멈춰! 살금살금 배달", "영차! 재료 구출", "피융! 새총 맞히기", "땡! 레시피 종 치기", "기울여! 재료 굴리기", "휙! 고리 던지기", "땡! 다섯 개 종 치기", "쏙쏙! 빨리 수확하기", "데굴! 과일 볼링", "통통! 과일 핀볼", "슛! 바구니 농구", "첨벙! 연못 낚시", "스르륵! 과일 컬링"];
 const KITS=[["kit0","사과 당근 데일리 멀티","사과·당근·자몽·레몬","1.5kg"],["kit1","당근 케일 아이 루틴","사과·케일·당근","1.5kg"],["kit2","ABC","사과·비트·당근","1.5kg"],["kit3","사과 당근 데일리 멀티","사과·당근·자몽·레몬","2.5kg"],["kit4","당근 케일 아이 루틴","사과·케일·당근","2.5kg"],["kit5","ABC","사과·비트·당근","2.5kg"]];
-const HAS=new Set(["angelica", "apple", "banana", "beet", "blackberry", "blueberry", "bokchoy", "broccoli", "cabbage", "carrot", "celery", "cucumber", "dragon", "gapple", "ginger", "glass_g", "glass_o", "glass_r", "glass_w", "grape", "grapefruit", "ic_balloon", "ic_beat", "ic_book", "ic_catch", "ic_garden", "ic_mem", "ic_plaza", "ic_rank", "ic_scale", "ic_slash", "juicer_f", "juicer_h", "juicer_run", "kale", "kit0", "kit1", "kit2", "kit3", "kit4", "kit5", "kiwi", "lemon", "lime", "logo", "mango", "melon", "mint", "orange", "parsley", "pear", "pepper", "persimmon", "pineapple", "pomegranate", "raspberry", "spinach", "strawberry", "title_l", "tomato", "watermelon", "wheatgrass", "yam"]);
+const HAS=new Set(["angelica", "apple", "banana", "beet", "blackberry", "blueberry", "bokchoy", "broccoli", "cabbage", "carrot", "celery", "cucumber", "dragon", "gapple", "ginger", "glass_g", "glass_o", "glass_r", "glass_w", "grape", "grapefruit", "ic_balloon", "ic_beat", "ic_book", "ic_catch", "ic_garden", "ic_mem", "ic_plaza", "ic_rank", "ic_scale", "ic_slash", "juicer_f", "juicer_h", "juicer_run", "kale", "kit0", "kit1", "kit2", "kit3", "kit4", "kit5", "kiwi", "lemon", "lime", "logo", "mango", "melon", "mint", "orange", "parsley", "pear", "pepper", "persimmon", "pineapple", "pomegranate", "raspberry", "spinach", "strawberry", "title_l", "title_p", "tomato", "watermelon", "wheatgrass", "yam"]);
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=id=>document.getElementById(id);
 const img=k=>HAS.has(k)?'pr-'+k+'.webp':'';
@@ -409,7 +449,7 @@ $('row1').lastElementChild&&[...$('row1').children].slice(a1.length).forEach(e=>
 
 /* fruit rain in hero */
 if(!RM){const ks=['apple','carrot','orange','lemon','kale','beet','strawberry','pineapple','kiwi','grape'];const r=$('rain');
-  for(let i=0;i<9;i++){const e=document.createElement('img');e.src=img(ks[i%ks.length]);e.alt='';e.style.left=(5+i*11)+'%';e.style.animationDuration=(14+i%4*4)+'s';e.style.animationDelay=(-i*2.3)+'s';e.style.width=(34+i%3*12)+'px';r.appendChild(e)}}
+  for(let i=0;i<12;i++){const e=document.createElement('img');e.src=img(ks[i%ks.length]);e.alt='';e.style.left=(2+i*8.3)+'%';e.style.animationDuration=(11+i%4*3)+'s';e.style.animationDelay=(-i*1.7)+'s';e.style.width=(30+i%3*10)+'px';r.appendChild(e)}}
 
 /* the press */
 const JCOL={glass_o:'#FFA42B',glass_g:'#8FCB4E',glass_r:'#D8344F',glass_w:'#F1E2BD'};
@@ -425,7 +465,7 @@ function press(){
   const chips=[...$('cIngs').children];chips.forEach(c=>c.style.opacity='.45');
   let t=0;seq.forEach((x,k)=>{setTimeout(()=>{d.src=img(x[1]);d.classList.remove('go');void d.offsetWidth;d.classList.add('go');
     const c=chips[r.i.indexOf(x)];if(c){c.style.opacity='1';c.classList.remove('in');void c.offsetWidth;c.classList.add('in')}},t);t+=380});
-  setTimeout(()=>{m.classList.add('run');f.style.height='21%'},t+200);
+  setTimeout(()=>{m.classList.add('run');f.style.height='19%'},t+200);
   setTimeout(()=>{m.classList.remove('run');cnt++;$('cnt').textContent=cnt},t+1400);
   setTimeout(()=>{busy=false;ri=(ri+1)%RECIPES.length},t+2500);
 }
